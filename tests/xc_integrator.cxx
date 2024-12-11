@@ -266,7 +266,7 @@ void test_xc_integrator( ExecutionSpace ex, const RuntimeEnvironment& rt,
 void test_integrator(std::string reference_file, functional_type& func, PruningScheme pruning_scheme) {
 
 #ifdef GAUXC_HAS_DEVICE
-  auto rt = DeviceRuntimeEnvironment(GAUXC_MPI_CODE(MPI_COMM_WORLD,) 0.9);
+  auto rt = DeviceRuntimeEnvironment(GAUXC_MPI_CODE(MPI_COMM_WORLD,) 0.2);
 #else
   auto rt = RuntimeEnvironment(GAUXC_MPI_CODE(MPI_COMM_WORLD));
 #endif
@@ -355,6 +355,7 @@ TEST_CASE( "XC Integrator", "[xc-integrator]" ) {
   auto r2scanl = ExchCXX::Functional::R2SCANL;
 
   // LDA Test
+  
   SECTION( "Benzene / SVWN5 / cc-pVDZ" ) {
     auto func = make_functional(svwn5, unpol);
     test_integrator(GAUXC_REF_DATA_PATH "/benzene_svwn5_cc-pvdz_ufg_ssf.hdf5", 
@@ -391,6 +392,7 @@ TEST_CASE( "XC Integrator", "[xc-integrator]" ) {
     test_integrator(GAUXC_REF_DATA_PATH "/cytosine_r2scanl_cc-pvdz_ufg_ssf_robust.hdf5", 
         func, PruningScheme::Robust );
   }
+  
 
   //UKS LDA Test
   SECTION( "Li / SVWN5 / sto-3g" ) {
